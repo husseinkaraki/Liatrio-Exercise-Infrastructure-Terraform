@@ -38,11 +38,22 @@ variable "availablity_zone_2" {
   type        = string
 }
 
+variable "tags_private_subnet_1" {
+  description = "The tags associated with the first private subnet."
+  type        = map
+}
 
-# variable "user_information" {
-#   type = object({
-#     name    = string
-#     address = string
-#   })
-#   sensitive = true
-# }
+variable "tags_private_subnet_2" {
+  description = "The tags associated with the second private subnet."
+  type        = map
+}
+
+variable "tags_public_subnet_1" {
+  description = "The tags associated with the first public subnet."
+  type        = map
+}
+
+variable "tags_public_subnet_2" {
+  description = "The tags associated with the second public subnet."
+  type        = map
+}

@@ -36,18 +36,18 @@ inputs = {
     subnet_cidr_block_public_2 = "10.2.0.192/26" 
 
     tags_private_subnet_1 = {
-      Name = "karaki-prisubnet-us-east-1a"
+      Name = "liatrio-prisubnet-us-east-1a"
     }
 
     tags_private_subnet_2 = {
-      Name = "karaki-prisubnet-us-east-1b"
+      Name = "liatrio-prisubnet-us-east-1b"
     }
 
     tags_public_subnet_1 = {
-      Name = "karaki-pubsubnet-us-east-1a"
+      Name = "liatrio-pubsubnet-us-east-1a"
     }
 
     tags_public_subnet_2 = {
-      Name = "karaki-pubsubnet-us-east-1b"
+      Name = "liatrio-pubsubnet-us-east-1b"
     }
 }
