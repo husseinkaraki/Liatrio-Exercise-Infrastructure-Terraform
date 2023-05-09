@@ -49,4 +49,5 @@ jobs:
       if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
       run: |
         cd prod/us-east-1/
+        export TF_LOG=”DEBUG”
         terragrunt run-all apply --terragrunt-source-update
