@@ -14,18 +14,18 @@ include "envcommon" {
 }
 
 locals {
-
+  ##
 }
 
 dependency "vpc" {
-    config_path = find_in_parent_folders("vpc")
+  config_path = find_in_parent_folders("vpc")
 }
 
 inputs = {
-  vpc_id = dependency.vpc.outputs.vpc_id
+  vpc_id          = dependency.vpc.outputs.vpc_id
   public_subnet_1 = dependency.vpc.outputs.public_subnet_1
   public_subnet_2 = dependency.vpc.outputs.public_subnet_2
-  
+
   gw_tags = {
     Name = "liatrio-ig-prod"
   }
