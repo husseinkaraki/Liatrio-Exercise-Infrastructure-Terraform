@@ -1,0 +1,42 @@
+name: Terragrunt Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.2
+
+    - name: Install Terragrunt
+      run: |
+        TERRAGRUNT_VERSION=$(curl --silent https://api.github.com/repos/gruntwork-io/terragrunt/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+        sudo curl --location "https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64" --output /usr/local/bin/terragrunt
+        sudo chmod +x /usr/local/bin/terragrunt
+      
+    - name: Initialize Terragrunt
+      run: |
+        cd prod/us-east-1/
+        terragrunt init
+        
+    - name: Plan Terraform changes
+      id: plan
+      run: |
+        cd prod/us-east-1/
+        terragrunt plan-all --terragrunt-source-update
+        
+    - name: Apply Terraform changes
+      if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+      run: |
+        cd prod/us-east-1/
+        terragrunt apply-all --terragrunt-source-update -auto-approve
