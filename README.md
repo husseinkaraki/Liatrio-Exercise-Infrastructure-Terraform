@@ -13,4 +13,4 @@ The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project.
 
 ## Deploy
 
-Master branch deploys all the modules per a specific environment, per a specific region. Since we have only 1 environemnt, and 1 region, its defaulted to `prod/us-east-`. 
+Master branch deploys all the modules per a specific environment, per a specific region. Since we have only 1 environemnt, and 1 region, its defaulted to `prod/us-east-1`. 

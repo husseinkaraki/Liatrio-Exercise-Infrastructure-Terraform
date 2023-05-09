@@ -13,7 +13,6 @@ terraform {
   source = "${local.base_source_url}?ref=v0.7.0"
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,7 +25,7 @@ locals {
 
   # Expose the base source URL so different versions of the module can be deployed in different environments. This will
   # be used to construct the terraform block in the child terragrunt configurations.
-  base_source_url = "git::git@github.com:gruntwork-io/terragrunt-infrastructure-modules-example.git//mysql"
+  base_source_url = find_in_parent_folders("../terraform/vpc")
 }
 
 
@@ -36,11 +35,6 @@ locals {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name              = "mysql_${local.env}"
-  instance_class    = "db.t2.micro"
-  allocated_storage = 20
-  storage_type      = "standard"
-  master_username   = "admin"
+  vpc_cidr = "10.2.0.0/16"
 
-  # TODO: To avoid storing your DB password in the code, set it as the environment variable TF_VAR_master_password
 }
