@@ -9,10 +9,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+
+    env:
+      AWS_REGION: us-east-1
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+    
+    - name: Install and configure AWS CLI
+      run: |
+        aws --version
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set default.region $AWS_REGION
+
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -33,7 +43,7 @@ jobs:
       id: plan
       run: |
         cd prod/us-east-1/
-        terragrunt plan-all --terragrunt-source-update
+        terragrunt run-all plan --terragrunt-source-update
         
     - name: Apply Terraform changes
       if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
