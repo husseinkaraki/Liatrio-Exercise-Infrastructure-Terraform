@@ -2,7 +2,8 @@
 # Include configurations that are common used across multiple environments.
 # ---------------------------------------------------------------------------------------------------------------------
 
-# Include the root `terragrunt.hcl` configuration. This loads up the env.hcl and region.hcl config files. 
+# Include the root `terragrunt.hcl` configuration. The root configuration contains settings that are common across all
+# components and environments, such as how to configure remote state.
 include "root" {
   path = find_in_parent_folders()
 }
@@ -11,10 +12,6 @@ include "root" {
 # for the component across all environments.
 include "envcommon" {
   path = "${dirname(find_in_parent_folders())}/_envcommon/ig.hcl"
-}
-
-locals {
-  ##
 }
 
 dependency "vpc" {
@@ -26,12 +23,7 @@ inputs = {
   public_subnet_1 = dependency.vpc.outputs.public_subnet_1
   public_subnet_2 = dependency.vpc.outputs.public_subnet_2
 
-  gw_tags = {
-    Name = "liatrio-ig-prod"
-  }
+  gw_name_tag = "liatrio-ig-prod"
 
-  liatrio_public_rt_name_tag = {
-    Name = "liatrio-prod-public-rt"
-  }
-
+  liatrio_public_rt_name_tag = "liatrio-prod-public-rt"
 }

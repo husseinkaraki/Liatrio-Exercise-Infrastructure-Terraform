@@ -14,7 +14,9 @@ terraform {
 
 resource "aws_internet_gateway" "liatrio_gw" {
   vpc_id = var.vpc_id
-  tags = var.gw_tags
+  tags = {
+    Name = var.gw_name_tag
+    }
 }
 
 resource "aws_route_table" "liatrio_ig_to_public_subnet" {
@@ -25,8 +27,9 @@ resource "aws_route_table" "liatrio_ig_to_public_subnet" {
     gateway_id = aws_internet_gateway.liatrio_gw.id
   }
 
-  tags = var.liatrio_public_rt_name_tag
-  
+  tags = {
+    Name = var.liatrio_public_rt_name_tag
+  }
 }
 
 resource "aws_route_table_association" "route_table_association_subnet1" {
