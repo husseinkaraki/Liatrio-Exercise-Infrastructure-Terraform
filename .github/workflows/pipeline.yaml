@@ -50,4 +50,4 @@ jobs:
       run: |
         cd prod/us-east-1/
         export TF_LOG=”DEBUG”
-        terragrunt run-all apply --terragrunt-source-update
+        terragrunt run-all apply --terragrunt-source-update --terragrunt-log-level debug --terragrunt-debug
