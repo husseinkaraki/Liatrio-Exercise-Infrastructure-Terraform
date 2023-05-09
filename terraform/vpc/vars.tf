@@ -3,7 +3,6 @@ variable "aws_region" {
   type        = string
 }
 
-
 variable "vpc_cidr" {
   description = "The vpc cidr block size."
   type        = string
