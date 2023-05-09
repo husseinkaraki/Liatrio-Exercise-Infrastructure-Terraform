@@ -1,10 +1,4 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# TERRAGRUNT CONFIGURATION
-# This is the configuration for Terragrunt, a thin wrapper for Terraform that helps keep your code DRY and
-# maintainable: https://github.com/gruntwork-io/terragrunt
-# ---------------------------------------------------------------------------------------------------------------------
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Include configurations that are common used across multiple environments.
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +22,7 @@ include "envcommon" {
 # For production, we want to specify bigger instance classes and storage, so we specify override parameters here. These
 # inputs get merged with the common inputs from the root and the envcommon terragrunt.hcl
 inputs = {
-  availablity_zone_1 = "us-east-1a"
+    availablity_zone_1 = "us-east-1a"
     availablity_zone_2 = "us-east-1b"
     subnet_cidr_block_private_1 = "10.2.0.0/26"
     subnet_cidr_block_private_2 = "10.2.0.64/26" 
@@ -36,18 +30,18 @@ inputs = {
     subnet_cidr_block_public_2 = "10.2.0.192/26" 
 
     tags_private_subnet_1 = {
-      Name = "liatrio-prisubnet-us-east-1a"
+      Name = "liatrio-prisub-us-east-1a"
     }
 
     tags_private_subnet_2 = {
-      Name = "liatrio-prisubnet-us-east-1b"
+      Name = "liatrio-prisubn-us-east-1b"
     }
 
     tags_public_subnet_1 = {
-      Name = "liatrio-pubsubnet-us-east-1a"
+      Name = "liatrio-pubsub-us-east-1a"
     }
 
     tags_public_subnet_2 = {
-      Name = "liatrio-pubsubnet-us-east-1b"
+      Name = "liatrio-pubsubn-us-east-1b"
     }
 }
