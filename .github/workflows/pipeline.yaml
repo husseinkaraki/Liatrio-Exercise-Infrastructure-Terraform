@@ -27,6 +27,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.4.6
+        terraform_wrapper: false
 
     - name: Install Terragrunt
       run: |
