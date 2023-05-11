@@ -10,7 +10,7 @@ The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project t
 - Update Values in project
 - Add VPC component and subnets
 - Add Internet Gateway, route table, and associations
-
+- Add EKS Cluster and dependencies
 
 ## Deploy
 
