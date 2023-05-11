@@ -8,6 +8,16 @@ variable "iam_role_name" {
   type = string
 }
 
+variable "cloudwatch_log_group_name" {
+  description = "The name of the cloudwatch log group name."
+  type = string
+}
+
+variable "cloudwatch_log_stream_name" {
+  description = "The name of the cloudwatch log stream name."
+  type = string
+}
+
 variable "eks_name" {
   description = "Name of the cluster."
   type        = string

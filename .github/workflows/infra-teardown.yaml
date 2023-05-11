@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+  
+jobs:
+  infra-teardown:
+    name: Teardown infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      # Set up AWS CLI with credentials
+      - name: Install and configure AWS CLI
+        run: |
+          aws --version
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region $AWS_REGION
+
+      # Run Terraform destroy to tear down infrastructure
+      - name: Terraform destroy
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.4.6
+        # env:
+          # TF_VAR_environment: dev
+        run: |
+          cd prod/us-east-1/
+          terragrunt init
+          terragrunt destroy -auto-approve

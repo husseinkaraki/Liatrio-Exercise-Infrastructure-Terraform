@@ -1,6 +1,6 @@
 # Project Description
 
-The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project to deploy a cloud environment in AWS. 
+The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project to deploy a cloud environment in AWS. The pipeline behavior defaults to applying changes to `prod` but the terraform and pipeline can easily be modified to support multiple environments. 
 
 ## Development 
 

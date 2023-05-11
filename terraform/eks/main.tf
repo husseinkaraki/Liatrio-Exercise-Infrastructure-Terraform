@@ -64,6 +64,18 @@ resource "aws_iam_role_policy_attachment" "eks" {
   role       = aws_iam_role.eks.name
 }
 
+## Cloudwatch 
+
+resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
+  name              = var.cloudwatch_log_group_name
+  retention_in_days = 7
+}
+
+resource "aws_cloudwatch_log_stream" "cloudwatch_log_stream" {
+  name            = var.cloudwatch_log_stream_name
+  log_group_name  = aws_cloudwatch_log_group.cloudwatch_log_group.name
+}
+
 ## Cluster
 
 resource "aws_eks_cluster" "eks_cluster" {
@@ -78,7 +90,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     subnet_ids = var.subnet_ids
   }
 
-  depends_on = [aws_iam_role_policy_attachment.eks]
+  depends_on = [aws_iam_role_policy_attachment.eks, aws_cloudwatch_log_group.cloudwatch_log_group]
 }
 
 ## Nodes

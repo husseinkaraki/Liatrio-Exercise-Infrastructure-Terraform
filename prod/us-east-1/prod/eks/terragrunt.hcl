@@ -21,6 +21,9 @@ dependency "vpc" {
 inputs = {
 
   iam_role_name = "liatrio-eks-cluster-role"
+  cloudwatch_log_group_name = "liatro-prod-log-group"
+  cloudwatch_log_stream_name = "liatrio-prod-log-stream"
+  
   eks_name = "liatrio-eks-prod"
 
   node_iam_policies = {
