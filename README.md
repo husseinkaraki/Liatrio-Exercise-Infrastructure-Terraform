@@ -1,6 +1,6 @@
 # Project Description
 
-The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project. 
+The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project to deploy a cloud environment in AWS. 
 
 ## Development 
 
@@ -8,9 +8,8 @@ The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project.
 - Create S3 Bucket
 - Create policy for S3 bucket for the github actions pipeline user karakidevmaster.
 - Update Values in project
-- Build VPC component
-- Build Subnets
-- Build/Edit Route Tables to make subnets private
+- Add VPC component and subnets
+- Add Internet Gateway, route table, and associations
 
 
 ## Deploy
