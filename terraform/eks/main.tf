@@ -113,13 +113,13 @@ resource "aws_launch_template" "eks_node_group_launch_template" {
     create_before_destroy = true
   }
 
-  user_data = <<EOF
-            #cloud-config
-            scaling:
-              desired_size: ${var.scaling_config_desired_size}
-              max_size: ${var.scaling_config_max_size}
-              min_size: ${var.scaling_config_min_size}
-            EOF
+  # user_data = <<EOF
+  #           #cloud-config
+  #           scaling:
+  #             desired_size: ${var.scaling_config_desired_size}
+  #             max_size: ${var.scaling_config_max_size}
+  #             min_size: ${var.scaling_config_min_size}
+  #           EOF
   
 }
 
