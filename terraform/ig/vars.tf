@@ -13,6 +13,16 @@ variable "public_subnet_2" {
   type        = string
 }
 
+variable "private_subnet_1" {
+  description = "The ID of the first private subnet the route table is associated with."
+  type        = string
+}
+
+variable "private_subnet_2" {
+  description = "The ID of the second private subnet the route table is associated with."
+  type        = string
+}
+
 variable "gw_name_tag" {
   description = "The name tag associated with the internet gateway."
   type        = string
