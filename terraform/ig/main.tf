@@ -56,12 +56,12 @@ resource "aws_route_table_association" "route_table_association_public_subnet2" 
 }
 
 resource "aws_route_table_association" "route_table_association_private_subnet1" {
-  subnet_id = var.privae_subnet_1
+  subnet_id = var.private_subnet_1
   route_table_id = aws_route_table.private_route_table.id
 }
 
 resource "aws_route_table_association" "route_table_association_private_subnet2" {
-  subnet_id = var.privae_subnet_2
+  subnet_id = var.private_subnet_2
   route_table_id = aws_route_table.private_route_table.id
 }
 
