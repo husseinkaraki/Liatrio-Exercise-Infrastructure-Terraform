@@ -9,8 +9,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.0"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
   }
 }
+
+
 
 ## IAM Policy Nodes and policies for Control Plane
 
@@ -65,7 +71,6 @@ resource "aws_iam_role_policy_attachment" "eks" {
 }
 
 ## Cloudwatch 
-
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
   name              = var.cloudwatch_log_group_name
   retention_in_days = 7
@@ -77,9 +82,8 @@ resource "aws_cloudwatch_log_stream" "cloudwatch_log_stream" {
 }
 
 ## Cluster
-
 resource "aws_eks_cluster" "eks_cluster" {
-  name     = "${var.eks_name}"
+  name     = var.eks_name
   version  = var.eks_version
   role_arn = aws_iam_role.eks.arn
 
@@ -92,6 +96,8 @@ resource "aws_eks_cluster" "eks_cluster" {
 
   depends_on = [aws_iam_role_policy_attachment.eks, aws_cloudwatch_log_group.cloudwatch_log_group]
 }
+
+
 
 ## Launch Template
 
@@ -157,4 +163,25 @@ resource "aws_eks_node_group" "eks_node_group" {
   # cloudwatch_log_group = "/aws/eks/${var.cloudwatch_log_group_name}/${var.node_group_name}"
 
   depends_on = [aws_iam_role_policy_attachment.nodes]
+}
+
+## Get Authorization token to allow K8 provider to access EKS
+data "aws_eks_cluster" "eks_cluster_data" {
+  name = "${var.eks_name}"
+}
+
+data "aws_eks_cluster_auth" "aws_eks_cluster_auth_data" {
+  name = "${data.aws_eks_cluster.eks_cluster_data.name}"
+}
+
+provider "kubernetes" {
+  host                   = "${data.aws_eks_cluster.eks_cluster_data.endpoint}"
+  cluster_ca_certificate = "${base64decode(data.aws_eks_cluster.eks_cluster_data.certificate_authority.0.data)}"
+  token                  = "${data.aws_eks_cluster_auth.aws_eks_cluster_auth_data.token}"
+}
+
+resource "kubernetes_namespace" "liatrio_namespace" {
+  metadata {
+    name = var.liatrio_prod_namespace
+  }
 }

@@ -19,3 +19,6 @@ Main branch deploys all the modules per a specific environment, per a specific r
 ## Notes
 - NAT Gateway terraform is combined with the Internet Gateway terraform.
 - For the `aws_launch_template` the lifecycle property `create_before_destroy` to prevent downtime. This can be useful in situations where you need to replace or update an existing resource without causing downtime.
+
+## TODO
+- Update the IAM roles in EKS `main.tf` to support multiple environemnts. 

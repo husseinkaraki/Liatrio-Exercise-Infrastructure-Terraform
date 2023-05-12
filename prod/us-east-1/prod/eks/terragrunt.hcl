@@ -44,5 +44,5 @@ inputs = {
   scaling_config_max_size     = 2
   scaling_config_min_size     = 1
   monitoring_enabled = true
-
+  liatrio_prod_namespace = "liatrio-main-ns"
 }

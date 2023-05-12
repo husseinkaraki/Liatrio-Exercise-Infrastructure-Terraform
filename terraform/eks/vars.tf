@@ -73,3 +73,8 @@ variable "monitoring_enabled" {
   description = "Enable monitoring."
   type        = bool
 }
+
+variable "liatrio_prod_namespace" {
+  description = "The name of the namespace."
+  type        = string
+}
