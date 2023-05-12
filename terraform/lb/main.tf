@@ -40,6 +40,7 @@ resource "aws_lb_target_group" "liatrio_prod_tg_exercist" {
   port               = 8080
   protocol           = "HTTP"
   target_type        = "ip"
+  vpc_id             = var.vpc_id
   
   health_check {
     path     = "/"
@@ -51,6 +52,8 @@ resource "aws_lb_target_group" "liatrio_prod_tg_exercist" {
 resource "aws_security_group" "liatrio-alb-sg" {
   name = var.security_group_name
   description = "Allow HTTP inbound traffic"
+  vpc_id = var.vpc_id
+  
   ingress {
     from_port   = 80
     to_port     = 80

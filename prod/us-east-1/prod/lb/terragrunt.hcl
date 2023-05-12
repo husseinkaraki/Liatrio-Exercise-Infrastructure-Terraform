@@ -24,4 +24,5 @@ inputs = {
  public_subnet_2 = dependency.vpc.outputs.public_subnet_1
  target_group_name = "liatrio-prod-exercist-tg"
  security_group_name = "liatrio-prod-sg"
+ vpc_id = dependency.vpc.outputs.vpc_id
 }
