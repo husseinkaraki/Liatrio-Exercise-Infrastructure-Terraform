@@ -21,7 +21,7 @@ dependency "vpc" {
 inputs = {
  load_balancer_name = "liatrio-prod-lb"
  public_subnet_1 = dependency.vpc.outputs.public_subnet_1
- public_subnet_2 = dependency.vpc.outputs.public_subnet_1
+ public_subnet_2 = dependency.vpc.outputs.public_subnet_2
  target_group_name = "liatrio-prod-exercist-tg"
  security_group_name = "liatrio-prod-sg"
  vpc_id = dependency.vpc.outputs.vpc_id
