@@ -15,3 +15,7 @@ The Terraform / Terragrunt infrastructure used by the Liatrio Exercise project t
 ## Deploy
 
 Main branch deploys all the modules per a specific environment, per a specific region. Since we have only 1 environemnt, and 1 region, its defaulted to `prod/us-east-1`. 
+
+## Notes
+- NAT Gateway terraform is combined with the Internet Gateway terraform.
+- For the `aws_launch_template` the lifecycle property `create_before_destroy` to prevent downtime. This can be useful in situations where you need to replace or update an existing resource without causing downtime.

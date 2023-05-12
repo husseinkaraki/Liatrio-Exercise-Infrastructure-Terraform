@@ -93,32 +93,68 @@ resource "aws_eks_cluster" "eks_cluster" {
   depends_on = [aws_iam_role_policy_attachment.eks, aws_cloudwatch_log_group.cloudwatch_log_group]
 }
 
+## Launch Template
+
+resource "aws_launch_template" "eks_node_group_launch_template" {
+  name = var.launch_template_name
+
+  instance_type = var.instance_type
+
+  capacity_reservation_specification {
+    capacity_reservation_preference = var.capacity_reservation_preference
+  }
+  
+  monitoring {
+    enabled = var.monitoring_enabled
+  } 
+
+  ## prevents downtime
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  user_data = <<EOF
+            #cloud-config
+            scaling:
+              desired_size: ${var.scaling_config_desired_size}
+              max_size: ${var.scaling_config_max_size}
+              min_size: ${var.scaling_config_min_size}
+            EOF
+  
+}
+
 ## Nodes
 resource "aws_eks_node_group" "eks_node_group" {
-  for_each = var.node_groups
-
   cluster_name    = aws_eks_cluster.eks_cluster.name
-  node_group_name = each.key
+  node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.nodes.arn
 
   subnet_ids = var.subnet_ids
 
-  capacity_type  = each.value.capacity_type
-  instance_types = each.value.instance_types
+  # capacity_type  = each.value.capacity_type
+  # instance_types = each.value.instance_types
 
+  #allows you to override the default scaling configuration set in the launch template for that specific node group
   scaling_config {
-    desired_size = each.value.scaling_config.desired_size
-    max_size     = each.value.scaling_config.max_size
-    min_size     = each.value.scaling_config.min_size
+    desired_size = var.scaling_config_max_size
+    max_size     = var.scaling_config_max_size
+    min_size     = var.scaling_config_min_size
+  }
+
+  launch_template {
+    id = aws_launch_template.eks_node_group_launch_template.id
+    version = "$Latest"
   }
 
   update_config {
     max_unavailable = 1
   }
 
-  labels = {
-    role = each.key
-  }
+  # labels = {
+  #   role = each.key
+  # }
+
+  # cloudwatch_log_group = "/aws/eks/${var.cloudwatch_log_group_name}/${var.node_group_name}"
 
   depends_on = [aws_iam_role_policy_attachment.nodes]
 }

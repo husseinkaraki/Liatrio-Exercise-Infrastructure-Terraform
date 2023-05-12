@@ -22,8 +22,13 @@ inputs = {
   vpc_id          = dependency.vpc.outputs.vpc_id
   public_subnet_1 = dependency.vpc.outputs.public_subnet_1
   public_subnet_2 = dependency.vpc.outputs.public_subnet_2
-
+  private_subnet_1 = dependency.vpc.outputs.private_subnet_1
+  private_subnet_2 = dependency.vpc.outputs.private_subnet_2
   gw_name_tag = "liatrio-ig-prod"
 
   liatrio_public_rt_name_tag = "liatrio-prod-public-rt"
+  liatrio_private_rt_name_tag = "liatrio-prod-private-rt"
+  eip_name = "liatrio-eip-prod"
+  nat_name = "liatrio-nat-prod"
+
 }

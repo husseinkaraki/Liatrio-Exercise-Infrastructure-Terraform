@@ -22,3 +22,18 @@ variable "liatrio_public_rt_name_tag" {
   description = "The name tag associated with the route table for the public subnets."
   type        = string
 }
+
+variable "liatrio_private_rt_name_tag" {
+  description = "The name tag associated with the route table for the private subnets."
+  type        = string
+}
+
+variable "eip_name" {
+  description = "The name tag for the Elastic IP."
+  type        = string
+}
+
+variable "nat_name" {
+  description = "The name tag for the NAT gateway."
+  type        = string
+}
